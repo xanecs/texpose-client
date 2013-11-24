@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <title>TeXpose</title>
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="css/style.css">
+    </head>
+    <body>
+        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalLogin">
+            Show Modal
+        </button>
+        <div class="modal fade" id="modalRegister" role="dialog" aria-labelledby="modalRegisterLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalRegisterLabel">Registrieren</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" id="formRegister">
+                            <div class="form-group" id="groupRegName">
+                                <label for="inputRegFirstname" class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-sm-6 containerLeft" id="containerRegFirstname">
+                                            <input type="text" class="form-control" id="inputRegFirstname" placeholder="Vorname">
+                                        </div>
+                                        <div class="col-sm-6 containerRight" id="containerRegLastname">
+                                            <input type="text" class="form-control" id="inputRegLastname" placeholder="Nachname">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="groupRegEmail">
+                                <label for="inputRegEmail" class="col-sm-2 control-label">E-Mail</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputRegEmail" placeholder="E-Mail">
+                                </div>
+                            </div>
+                            <div class="form-group" id="groupRegUsername">
+                                <label for="inputRegUsername" class="col-sm-2 control-label">Benutzer</label>
+                                <div class="col-sm-7 containerLeft" id="containerRegUsername">
+                                    <input type="text" class="form-control" placeholder="Benutzername" id="inputRegUsername">
+                                </div>
+                                <div class="col-sm-3 containerRight" id="containerRegCheckusername">
+                                    <button type="button" class="btn btn-default" id="btnCheckUsername"><span class="glyphicon glyphicon-ok"></span> Prüfen</button>
+                                </div>
+                            </div>
+                            <div class="form-group" id="groupRegPassword">
+                                <label for="inputRegPassword" class="col-sm-2 control-label">Passwort</label>
+                                <div class="col-sm-10">
+                                    <div class="row" id="containerRegPassword">
+                                        <div class="col-sm-6 containerLeft">
+                                            <input type="password" class="form-control" id="inputRegPassword" placeholder="Passwort">
+                                        </div>
+                                        <div class="col-sm-6 containerRight">
+                                            <input type="password" class="form-control" id="inputRegPasswordRepeat" placeholder="Wiederholung">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Registrieren</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        Schon registriert? <button class="btn btn-default" id="btnSwitchToLogin">Anmelden</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalLogin" role="dialog" aria-labelledby="modalLoginLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalLoginLabel">Anmelden</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form class="form-horizontal" role="form" id="formLogin">
+                            <div class="form-group">
+                                <label for="inputLogUsername" class="col-sm-2 control-label">Benutzer</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputLogUsername" placeholder="Benutzername">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputLogPassword" class="col-sm-2 control-label">Passwort</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <input type="password" class="form-control" id="inputLogPassword" placeholder="Passwort">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Anmelden</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        Noch kein Konto? <button class="btn btn-default" id="btnSwitchToRegister">Registrieren</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalDone" role="dialog" aria-labelledby="modalDoneLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="modalDoneLabel">Fertig</h4>
+                    </div>
+                    <div class="modal-body" id="modalDoneBody">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="js/api_url.js"></script>
+        <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/login.js"></script>
+    </body>
+</html>
