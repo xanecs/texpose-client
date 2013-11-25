@@ -1,4 +1,4 @@
-/*global $, jQuery, console, API_URL, document, alert */
+/*global $, jQuery, console, API_URL, document, alert, location */
 
 
 
@@ -15,7 +15,7 @@ var checkUsername = function () {
     $('.alert-reg').remove();
     var username = $('#inputRegUsername').val();
     if (username) {
-        $.get(API_URL + '/checkusername/' + username, function (result) {
+        $.get(API_URL + '/user/checkusername/' + username, function (result) {
             if (result.status !== 'success') {
                 return null;
             }
@@ -25,15 +25,23 @@ var checkUsername = function () {
     }
 };
 
+var setUpWorkspace = function (options) {
+    "use strict";
+    $('#labelName').html($('#labelName').html().replace('Vorname', options.firstname).replace('Nachname', options.lastname));
+    $('#dropdownName').removeClass('hidden');
+    $('#mainMenu').removeClass('hidden');
+    $('#dropdownSignIn').addClass('hidden');
+};
+
 $(document).ready(function () {
     "use strict";
     
     if (!$.cookie("sessID")) {
         $('#modalLogin').modal('show');
     } else {
-        $.post(API_URL + '/getuserinfo', {token: $.cookie("sessID")}, function (result) {
+        $.post(API_URL + '/auth/getuserinfo', {token: $.cookie("sessID")}, function (result) {
             if (result.status === 'SUCCESS') {
-                alert('Is this you, ' + result.firstname + ' ' + result.lastname + '?');
+                setUpWorkspace(result);
             } else {
                 $('#modalLogin').modal('show');
             }
@@ -41,6 +49,11 @@ $(document).ready(function () {
             $('#modalLogin').modal('show');
         });
     }
+    
+    $('#logout').click(function () {
+        $.cookie("sessID", null);
+        location.reload();
+    });
     
     $('#btnSwitchToRegister').click(function () {
         $('#modalLogin').modal('hide');
@@ -67,6 +80,8 @@ $(document).ready(function () {
             'password': $('#inputLogPassword').val()
         };
         
+        $('.alert-reg').remove();
+        
         var doReturn = 0;
         if (!data.username) {
             $('#inputLogUsername').after(messages.empty);
@@ -82,10 +97,13 @@ $(document).ready(function () {
             return;
         }
         
-        $.post(API_URL + '/login', data, function (result) {
+        $.post(API_URL + '/auth/login', data, function (result) {
             if (result.status === 'SUCCESS') {
                 $.cookie("sessID", result.authToken, {expires: 2});
                 $('#modalLogin').modal('hide');
+                $.post(API_URL + '/auth/getuserinfo', {token: result.authToken}, function (result) {
+                    setUpWorkspace(result);
+                });
             }
         });
     });
@@ -144,7 +162,7 @@ $(document).ready(function () {
             return;
         }
         
-        $.post(API_URL + '/register', data, function (result) {
+        $.post(API_URL + '/user/register', data, function (result) {
             console.log(result);
             if (result.status === "success") {
                 $('#moalDoneBody').append(messages.registersuccess);

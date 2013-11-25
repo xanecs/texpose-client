@@ -5,13 +5,56 @@
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body>
-        <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalLogin">
-            Show Modal
-        </button>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">TeXpose</a>
+            </div>
+            <ul class="navbar-left nav navbar-nav hidden" id="mainMenu">
+                <li><a href="#" id="btnProjects">Projekte</a></li>
+                <li><a href="#" id="btnCompile">Kompilieren</a></li>
+                <li><a href="/help.html" target="_blank">Hilfe</a></li>
+            </ul>
+            
+            <ul class="navbar-right nav navbar-nav">
+                <li class="dropdown"id="dropdownSignIn">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nicht angemeldet <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-target="#modalLogin">Anmelden</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#modalRegister">Registrieren</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown hidden" id="dropdownName">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="labelName"><span class="glyphicon glyphicon-user"></span> Vorname Nachname <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" id="logout">Abmelden</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <div class="fullwidth-container">
+            <div class="row">
+                <div class="col-sm-2" id="sidebar" style="background: green">
+                    
+                </div>
+                <div class="col-sm-10" id="content" style="background: red">
+                    <div class="fullwidth-container">
+                        <div class="row">
+                            <div class="col-sm-6" style="background: blue">
+                            
+                            </div>
+                            <div class="col-sm-6" style="background: magenta">
+                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="modalRegister" role="dialog" aria-labelledby="modalRegisterLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
                         <h4 class="modal-title" id="modalRegisterLabel">Registrieren</h4>
                     </div>
                     <div class="modal-body">
@@ -74,6 +117,7 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
                         <h4 class="modal-title" id="modalLoginLabel">Anmelden</h4>
                     </div>
                     <div class="modal-body">
@@ -107,9 +151,25 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
                         <h4 class="modal-title" id="modalDoneLabel">Fertig</h4>
                     </div>
                     <div class="modal-body" id="modalDoneBody">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalProjects" role="dialog" aria-labelledby="modalProjectsLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                        <h4 class="modal-title" id="modalProjectsLabel">Projekte</h4>
+                    </div>
+                    <div class="modal-body" id="modalProjectsBody">
+                        <div class="list-group" id="listProjects">
+                            
+                        </div>
                     </div>
                 </div>
             </div>
@@ -119,5 +179,6 @@
         <script type="text/javascript" src="js/jquery.cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
+        <script type="text/javascript" src="js/projects.js"></script>
     </body>
 </html>
