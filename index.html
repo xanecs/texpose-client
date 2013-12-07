@@ -16,7 +16,7 @@
             </ul>
             
             <ul class="navbar-right nav navbar-nav">
-                <li class="dropdown"id="dropdownSignIn">
+                <li class="dropdown" id="dropdownSignIn">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Nicht angemeldet <span class="glyphicon glyphicon-chevron-down"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#" data-toggle="modal" data-target="#modalLogin">Anmelden</a></li>
@@ -24,25 +24,45 @@
                     </ul>
                 </li>
                 <li class="dropdown hidden" id="dropdownName">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="labelName"><span class="glyphicon glyphicon-user"></span> Vorname Nachname <span class="glyphicon glyphicon-chevron-down"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="labelName"><span class="glyphicon glyphicon-user"></span> Vorname Nachname <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#" id="logout">Abmelden</a></li>
                     </ul>
                 </li>
             </ul>
         </nav>
-        <div class="fullwidth-container">
+        <div class="fullwidth-container" id="mainContent">
             <div class="row">
-                <div class="col-sm-2" id="sidebar" style="background: green">
+                <div class="col-sm-2" id="sidebar">
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle disabled" data-toggle="dropdown" id="btnNew">Neu <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#" id="btnNewFile">Leere Datei</a></li>
+                            <li><a href="#" id="btnUploadFile">Datei hochladen</a></li>
+                        </ul>
+                    </div>
+                    <button class="btn btn-danger disabled" id="btnDelete">Löschen</button>
+                    <button class="btn btn-primary disabled" id="btnSave">Speichern</button>
                     
+                    <div class="tree" id="filesTree">
+                        
+                    </div>
                 </div>
-                <div class="col-sm-10" id="content" style="background: red">
+                <div class="col-sm-10" id="content">
                     <div class="fullwidth-container">
                         <div class="row">
-                            <div class="col-sm-6" style="background: blue">
-                            
+                            <div class="col-sm-6" id="editorContainer">
+                                <div id="editor" class="hidden"></div>
+                                <div id="image-viewer" class="hidden">
+                                    <div>
+                                        <img src="" id="image-viewer-image">
+                                    </div>
+                                    <div class="controls">
+                                        <button class="btn btn-primary" id="btnReplace">Ersetzen</button>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="col-sm-6" style="background: magenta">
+                            <div class="col-sm-6" style="background: magenta" id="preview">
                             
                             </div>
                         </div>
@@ -170,6 +190,50 @@
                         <div class="list-group" id="listProjects">
                             
                         </div>
+                        <form class="form-horizontal" role="form" id="formPrjNew">
+                            <div class="form-group">
+                                <label for="inputPrjTitle" class="col-sm-2 control-label">Titel</label>
+                                <div class="col-sm-10">
+                                    <input type="text" class="form-control" id="inputPrjTitle" placeholder="Titel">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputPrjDesc" class="col-sm-2 control-label">Info</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <textarea class="form-control" id="inputPrjDesc" placeholder="Beschreibung"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Neu</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalUpload" role="dialog" aria-labelledby="modalUploadLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                        <h4 class="modal-title" id="modalUploadLabel">Projekte</h4>
+                    </div>
+                    <div class="modal-body" id="modalUploadBody">
+                        <form class="form-horizontal" role="form" id="formUpload">
+                            <div class="form-group">
+                                <label for="inputUploadFile" class="col-sm-2 control-label">Datei</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <input type="file" id="inputUploadFile">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Hochladen</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -178,7 +242,12 @@
         <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
         <script type="text/javascript" src="js/jquery.cookie.js"></script>
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/jquery.jstree.js"></script>
+        <script type="text/javascript" src="js/jquery.base64.js"></script>
+        <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="js/editor.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
         <script type="text/javascript" src="js/projects.js"></script>
+        <script type="text/javascript" src="js/modalcontrol.js"></script>
     </body>
 </html>

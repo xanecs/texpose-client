@@ -1,5 +1,10 @@
 .fullwidth-container {
     padding: 0 15px;
+    
+}
+
+#mainContent {
+    
 }
 
 #containerRegCheckusername button{
@@ -10,4 +15,32 @@
     margin-top: 5px;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+
+
+#filesTree {
+    background: #fff;
+    overflow-y: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+li.jstree-leaf > a .jstree-icon {
+    background: url("../img/ui/file.png") 0px 0px no-repeat;
+}
+
+#editor {
+    height: 500px;
+}
+
+#image-viewer-image {
+    max-height: 500px;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+#btnNew {
+    margin-right: 4px;
 }
