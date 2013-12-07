@@ -44,3 +44,7 @@ li.jstree-leaf > a .jstree-icon {
 #btnNew {
     margin-right: 4px;
 }
+
+#sidebar .btn {
+    height: 34px;
+}

@@ -1,12 +1,51 @@
-/*global $, jQuery, console, API_URL, document, alert, location */
+/*global $, jQuery, console, API_URL, document, alert, location, path, editor, messages  */
 var projects;
 var project = {};
+
+var imageFormats = [
+    "png",
+    "jpg",
+    "jpeg",
+    "bmp",
+    "gif"
+];
 
 var populateTree = function () {
     "use strict";
     $.post(API_URL + '/file/list', {token: $.cookie('sessID'), project: project._id}, function (result) {
         console.log(result);
+        $('#filesTree').bind('before.jstree', function (event, data) {
+            switch (data.plugin) {
+            case 'ui':
+                if (!data.inst.is_leaf(data.args[0])) {
+                    return false;
+                }
+                break;
+            default:
+                break;
+            }
+        });
+        
         $('#filesTree').jstree({json_data: result, plugins: ["json_data", "themes", "ui"]});
+        $('#filesTree').bind("select_node.jstree", function (evt, data) {
+            if (data.rslt.obj.attr("leaf")) {
+                path = data.rslt.obj.attr("path");
+                $.get(API_URL + '/file/get/' + project._id + '/' + $.cookie("sessID") + '/' +  encodeURIComponent(path), function (result) {
+                    var extension = path.substr(path.lastIndexOf('.') + 1);
+                    if ($.inArray(extension, imageFormats) > -1) {
+                        $('#image-viewer-image').attr('src', API_URL + '/file/get/' + project._id + '/' + $.cookie("sessID") + '/' + encodeURIComponent(path));
+                        $('#editor').addClass('hidden');
+                        $('#image-viewer').removeClass('hidden');
+                        $('#btnSave').addClass('disabled');
+                    } else {
+                        editor.setValue(result);
+                        $('#image-viewer').addClass('hidden');
+                        $('#editor').removeClass('hidden');
+                        $('#btnSave').removeClass('disabled');
+                    }
+                });
+            }
+        });
     });
 };
 
@@ -25,7 +64,7 @@ $(document).ready(function () {
     $('#listProjects').on('click', '.project-item', function () {
         var projectId = $(this).attr('data-projectid');
         projects.forEach(function (cProject) {
-            if(cProject._id == projectId) {
+            if (cProject._id == projectId) {
                 project = cProject;
             }
         });

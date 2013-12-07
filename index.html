@@ -33,22 +33,22 @@
         </nav>
         <div class="fullwidth-container" id="mainContent">
             <div class="row">
-                <div class="col-sm-2" id="sidebar">
+                <div class="col-md-2" id="sidebar">
                     <div class="btn-group">
-                        <button class="btn btn-primary dropdown-toggle disabled" data-toggle="dropdown" id="btnNew">Neu <span class="caret"></span></button>
+                        <button class="btn btn-primary dropdown-toggle disabled" data-toggle="dropdown" id="btnNew"><span class="glyphicon glyphicon-plus"></span></span></button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#" id="btnNewFile">Leere Datei</a></li>
                             <li><a href="#" id="btnUploadFile">Datei hochladen</a></li>
                         </ul>
                     </div>
-                    <button class="btn btn-danger disabled" id="btnDelete">Löschen</button>
-                    <button class="btn btn-primary disabled" id="btnSave">Speichern</button>
+                    <button class="btn btn-danger disabled" id="btnDelete"><span class="glyphicon glyphicon-trash"></span></button>
+                    <button class="btn btn-primary disabled" id="btnSave"><span class="glyphicon glyphicon-floppy-disk"></span></button>
                     
                     <div class="tree" id="filesTree">
                         
                     </div>
                 </div>
-                <div class="col-sm-10" id="content">
+                <div class="col-md-10" id="content">
                     <div class="fullwidth-container">
                         <div class="row">
                             <div class="col-sm-6" id="editorContainer">
@@ -213,15 +213,71 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="modalUpload" role="dialog" aria-labelledby="modalUploadLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+        <div class="modal fade" id="modalReplace" role="dialog" aria-labelledby="modalReplaceLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
-                        <h4 class="modal-title" id="modalUploadLabel">Projekte</h4>
+                        <h4 class="modal-title" id="modalReplaceLabel">Ersetzen</h4>
+                    </div>
+                    <div class="modal-body" id="modalReplaceBody">
+                        <form class="form-horizontal" role="form" id="formReplace">
+                            <div class="form-group">
+                                <label for="inputReplaceFile" class="col-sm-2 control-label">Datei</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <input type="file" id="inputReplaceFile">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Hochladen</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalNewFile" role="dialog" aria-labelledby="modalNewLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                        <h4 class="modal-title" id="modalNewLabel">Datei erstellen</h4>
+                    </div>
+                    <div class="modal-body" id="modalNewBody">
+                        <form class="form-horizontal" role="form" id="formNewFile">
+                            <div class="form-group">
+                                <label for="inputNewPath" class="col-sm-2 control-label">Pfad</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <input type="text" class="form-control" id="inputNewPath" placeholder="z.B. kapitel/kapitel1.tex">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Erstellen</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalUploadFile" role="dialog" aria-labelledby="modalUploadLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                        <h4 class="modal-title" id="modalUploadLabel">Datei hochladen</h4>
                     </div>
                     <div class="modal-body" id="modalUploadBody">
-                        <form class="form-horizontal" role="form" id="formUpload">
+                        <form class="form-horizontal" role="form" id="formUploadFile">
+                            <div class="form-group">
+                                <label for="inputUploadPath" class="col-sm-2 control-label">Pfad</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <input type="text" class="form-control" id="inputUploadPath" placeholder="z.B. kapitel/kapitel1.tex">
+                                </div>
+                            </div>
                             <div class="form-group">
                                 <label for="inputUploadFile" class="col-sm-2 control-label">Datei</label>
                                 <div class="col-sm-10 containerLeft">
@@ -230,7 +286,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-primary">Hochladen</button>
+                                    <button type="submit" class="btn btn-primary">Erstellen</button>
                                 </div>
                             </div>
                         </form>
