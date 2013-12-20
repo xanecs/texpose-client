@@ -1,10 +1,11 @@
-/*global $, jQuery, console, API_URL, document, alert, location, ace, project, btoa, encode64, messages */
+/*global $, jQuery, console, API_URL, document, alert, location, ace, project, btoa, encode64, messages, window */
 
 var uploadHandler;
 var newFileHandler;
 var uploadFileHandler;
+var renameFileHandler;
 
-var initiateUpload = function (options, callback) {
+var initiateUpload = function (callback) {
     "use strict";
     uploadHandler = callback;
     $('#modalReplace').modal('show');
@@ -22,8 +23,25 @@ var initiateUploadNewFile = function (callback) {
     $('#modalUploadFile').modal('show');
 };
 
+var initiateRenameFile = function (data, callback) {
+    "use strict";
+    renameFileHandler = callback;
+    $('#inputRenameOldPath').val(data);
+    $('#modalRenameFile').modal('show');
+};
+
+var resize = function () {
+    "use strict";
+    $('#content').height($(window).height() - 102);
+    $('#tabPdf').height($(window).height() - 102 - 42);
+};
+
 $(document).ready(function () {
     "use strict";
+    resize();
+    
+    $(window).resize(resize);
+    
     $('#formReplace').submit(function (event) {
         event.preventDefault();
         if (uploadHandler) {
@@ -35,6 +53,7 @@ $(document).ready(function () {
     $('#formNewFile').submit(function (event) {
         event.preventDefault();
         if (newFileHandler) {
+            $('.alert-reg').remove();
             var data = {
                 path: $('#inputNewPath').val()
             };
@@ -50,6 +69,7 @@ $(document).ready(function () {
     $('#formUploadFile').submit(function (event) {
         event.preventDefault();
         if (uploadFileHandler) {
+            $('.alert-reg').remove();
             var data = {
                 path: $('#inputUploadPath').val()
             };
@@ -61,6 +81,35 @@ $(document).ready(function () {
             
             var file = $('#inputUploadFile')[0].files[0];
             uploadFileHandler(data, file);
+        }
+    });
+    
+    $('#formRenameFile').submit(function (event) {
+        event.preventDefault();
+        if (renameFileHandler) {
+            $('.alert-reg').remove();
+            var data = {
+                oldpath: $('#inputRenameOldPath').val(),
+                newpath: $('#inputRenameNewPath').val()
+            };
+            
+            var doReturn = 0;
+            
+            if (!data.oldpath) {
+                $('#inputRenameOldPath').after(messages.empty);
+                doReturn++;
+            }
+            
+            if (!data.newpath) {
+                $('#inputRenameNewPath').after(messages.empty);
+                doReturn++;
+            }
+            
+            if(doReturn > 0) {
+                return;
+            }
+            
+            renameFileHandler(data);
         }
     });
 });

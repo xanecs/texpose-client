@@ -6,37 +6,55 @@ var editor = ace.edit("editor");
 editor.setTheme("ace/theme/monokai");
 editor.getSession().setMode("ace/mode/tex");
 
+var saveDocument = function (callback) {
+    if (path && $('#image-viewer').hasClass('hidden')) {
+        $('#alertSaving').fadeIn();
+        $.ajax({
+            url: API_URL + '/file/new',
+            type: 'post',
+            contentType: 'text/plain',
+            data: editor.getValue(),
+            headers: {
+                'Token': $.cookie('sessID'),
+                'Project': project._id,
+                'Path': path
+            },
+            crossDomain: true,
+            success: function (data) {
+                if(typeof callback === 'function') {
+                    callback()
+                }
+                $('#btnSave').removeClass('btn-primary');
+                $('#btnSave').addClass('btn-success');
+                setTimeout(function () {
+                    $('#btnSave').removeClass('btn-success');
+                    $('#btnSave').addClass('btn-primary');
+                }, 500);
+                $('#alertSaving').fadeOut();
+            }
+        });
+    }
+};
+
 $(document).ready(function () {
     "use strict";
     
     
-    $("#btnSave").click(function () {
-        if (path && $('#image-viewer').hasClass('hidden')) {
-            $.ajax({
-                url: API_URL + '/file/new',
-                type: 'post',
-                contentType: 'text/plain',
-                data: editor.getValue(),
-                headers: {
-                    'Token': $.cookie('sessID'),
-                    'Project': project._id,
-                    'Path': path
-                },
-                crossDomain: true,
-                success: function (data) {
-                    $('#btnSave').removeClass('btn-primary');
-                    $('#btnSave').addClass('btn-success');
-                    setTimeout(function () {
-                        $('#btnSave').removeClass('btn-success');
-                        $('#btnSave').addClass('btn-primary');
-                    }, 500);
-                }
+    $('#btnSave').click(saveDocument);
+    
+    $('#btnRename').click(function () {
+        initiateRenameFile(path, function (data) {
+            $.post(API_URL + '/file/rename', {path: data.oldpath, newpath: data.newpath, project: project._id, token: $.cookie('sessID')}, function (result) {
+                populateTree();
+                $('#editor').addClass('hidden');
+                $('#modalRenameFile').modal('hide');
             });
-        }
+        });
     });
     
     $('#btnReplace').click(function () {
         initiateUpload(function (file) {
+            $('#alertUpload').fadeIn();
             $.ajax({
                 url: API_URL + '/file/new',
                 type: 'post',
@@ -50,6 +68,7 @@ $(document).ready(function () {
                 crossDomain: true,
                 processData: false,
                 success: function (data) {
+                    $('#alertUpload').fadeOut();
                     $('#btnReplace').removeClass('btn-primary');
                     $('#btnReplace').addClass('btn-success');
                     $('#image-viewer-image').attr('src', API_URL + '/file/get/' + project._id + '/' + $.cookie("sessID") + '/' + encodeURIComponent(path));
@@ -74,6 +93,7 @@ $(document).ready(function () {
     
     $('#btnNewFile').click(function () {
         initiateNewFile(function (result) {
+            $('#alertUpload').fadeIn();
             $.ajax({
                 url: API_URL + '/file/new',
                 type: 'post',
@@ -86,6 +106,7 @@ $(document).ready(function () {
                 },
                 crossDomain: true,
                 success: function (data) {
+                    $('#alertUpload').fadeOut();
                     $('#btnNew').removeClass('btn-primary');
                     $('#btnNew').addClass('btn-success');
                     populateTree();
@@ -101,6 +122,7 @@ $(document).ready(function () {
     
     $('#btnUploadFile').click(function () {
         initiateUploadNewFile(function (result, file) {
+            $('#alertUpload').fadeIn();
             $.ajax({
                 url: API_URL + '/file/new',
                 type: 'post',
@@ -114,6 +136,7 @@ $(document).ready(function () {
                 processData: false,
                 crossDomain: true,
                 success: function (data) {
+                    $('#alertUpload').fadeOut();
                     $('#btnNew').removeClass('btn-primary');
                     $('#btnNew').addClass('btn-success');
                     populateTree();

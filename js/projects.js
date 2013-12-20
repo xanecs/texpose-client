@@ -51,7 +51,8 @@ var populateTree = function () {
 
 $(document).ready(function () {
     "use strict";
-    $('#btnProjects').click(function () {
+    
+    var refreshProjects = function () {
         $('.project-item').remove();
         $.post(API_URL + '/project/list', {token: $.cookie('sessID')}, function (result) {
             projects = result;
@@ -60,7 +61,14 @@ $(document).ready(function () {
             });
             $('#modalProjects').modal('show');
         });
+    };
+    
+    $('#btnProjects').click(refreshProjects);
+    
+    $('btnProjectSettings').click(function () {
+        
     });
+    
     $('#listProjects').on('click', '.project-item', function () {
         var projectId = $(this).attr('data-projectid');
         projects.forEach(function (cProject) {
@@ -72,14 +80,14 @@ $(document).ready(function () {
         $('#btnSave').removeClass('disabled');
         $('#btnDelete').removeClass('disabled');
         $('#btnNew').removeClass('disabled');
-        
+        $('#btnRename').removeClass('disabled');
         populateTree();
     });
     
     $('#formPrjNew').submit(function (event) {
         event.preventDefault();
         var data = {
-            'title': $('#inputPrjTitle').val(),
+            'name': $('#inputPrjTitle').val(),
             'description': $('#inputPrjDesc').val(),
             'token': $.cookie('sessID')
         };
@@ -87,10 +95,15 @@ $(document).ready(function () {
         $('.alert-reg').remove();
         
         var doReturn = 0;
-        if (!data.username) {
+        if (!data.name) {
             $('#inputPrjTitle').after(messages.empty);
             doReturn += 1;
         }
+        
+        $.post(API_URL + '/project/new', data, function(result) {
+            $('#modalProjects').modal('hide');
+            refreshProjects();
+        });
     });
 });
 

@@ -66,7 +66,7 @@ $(document).ready(function () {
     });
     
     $('#btnCheckUsername').click(function () {
-        if (!checkUsername) {
+        if (checkUsername()) {
             $('#inputRegUsername').after(messages.taken);
         } else {
             $('#inputRegUsername').after(messages.nottaken);

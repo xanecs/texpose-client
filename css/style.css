@@ -29,12 +29,12 @@ li.jstree-leaf > a .jstree-icon {
     background: url("../img/ui/file.png") 0px 0px no-repeat;
 }
 
-#editor {
-    height: 500px;
+#editor, #editorContainer, #contentContainer, #contentContainer > .row, #tabPdf > .tab-pane {
+    height: 100%;
 }
 
 #image-viewer-image {
-    max-height: 500px;
+    max-height: 400px;
 }
 
 .controls {
@@ -47,4 +47,35 @@ li.jstree-leaf > a .jstree-icon {
 
 #sidebar .btn {
     height: 34px;
+}
+
+#pdf-viewer {
+    height: 100%;
+    width: 100%;
+}
+
+#preview {
+    height: 100%;
+}
+
+.alertProgress {
+    width: 200px;
+    height: 75px;
+    position: absolute;
+    top: 75px;
+    right: 75px;
+    display: none;
+}
+
+#content {
+    height: 500px;
+}
+
+iframe {
+    border: none;
+}
+
+#log {
+    overflow-y: scroll;
+        
 }

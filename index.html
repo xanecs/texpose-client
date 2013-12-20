@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>TeXpose</title>
@@ -11,6 +12,7 @@
             </div>
             <ul class="navbar-left nav navbar-nav hidden" id="mainMenu">
                 <li><a href="#" id="btnProjects">Projekte</a></li>
+                <li><a href="#" id="btnProjectSettings">Projekteinstellungen</a></li>
                 <li><a href="#" id="btnCompile">Kompilieren</a></li>
                 <li><a href="/help.html" target="_blank">Hilfe</a></li>
             </ul>
@@ -35,7 +37,7 @@
             <div class="row">
                 <div class="col-md-2" id="sidebar">
                     <div class="btn-group">
-                        <button class="btn btn-primary dropdown-toggle disabled" data-toggle="dropdown" id="btnNew"><span class="glyphicon glyphicon-plus"></span></span></button>
+                        <button class="btn btn-primary dropdown-toggle disabled" data-toggle="dropdown" id="btnNew"><span class="glyphicon glyphicon-plus"></span></button>
                         <ul class="dropdown-menu" role="menu">
                             <li><a href="#" id="btnNewFile">Leere Datei</a></li>
                             <li><a href="#" id="btnUploadFile">Datei hochladen</a></li>
@@ -43,13 +45,13 @@
                     </div>
                     <button class="btn btn-danger disabled" id="btnDelete"><span class="glyphicon glyphicon-trash"></span></button>
                     <button class="btn btn-primary disabled" id="btnSave"><span class="glyphicon glyphicon-floppy-disk"></span></button>
-                    
+                    <button class="btn btn-primary disabled" id="btnRename"><span class="glyphicon glyphicon-edit"></span></button>
                     <div class="tree" id="filesTree">
                         
                     </div>
                 </div>
                 <div class="col-md-10" id="content">
-                    <div class="fullwidth-container">
+                    <div class="fullwidth-container" id="contentContainer">
                         <div class="row">
                             <div class="col-sm-6" id="editorContainer">
                                 <div id="editor" class="hidden"></div>
@@ -62,12 +64,42 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-6" style="background: magenta" id="preview">
-                            
+                            <div class="col-sm-6" id="preview">
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="#pdf" data-toggle="tab">Vorschau</a></li>
+                                    <li><a href="#log" data-toggle="tab">Log</a></li>
+                                </ul>
+                                <div class="tab-content" id="tabPdf">
+                                    <div class="tab-pane active" id="pdf">
+                                        <iframe class="hidden" id="pdf-viewer"></iframe>
+                                    </div>
+                                    <div class="tab-pane" id="log">
+                                        <pre id="preLog"></pre>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        
+        <div class="alert alert-success alertProgress" id="alertSaving">
+            <p>Speichern</p>
+            <div class="progress progress-striped active" >
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alertProgress" id="alertCompiling">
+            <p>Kompilieren</p>
+            <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
+            </div>
+        </div>
+        <div class="alert alert-success alertProgress" id="alertUpload">
+            <p>Hochladen</p>
+            <div class="progress progress-striped active">
+                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%"></div>
             </div>
         </div>
         <div class="modal fade" id="modalRegister" role="dialog" aria-labelledby="modalRegisterLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
@@ -294,6 +326,37 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modalRenameFile" role="dialog" aria-labelledby="modalRenameLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                        <h4 class="modal-title" id="modalRenameLabel">Datei umbenennen</h4>
+                    </div>
+                    <div class="modal-body" id="modalRenameBody">
+                        <form class="form-horizontal" role="form" id="formRenameFile">
+                            <div class="form-group">
+                                <label for="inputRenameOldPath" class="col-sm-2 control-label">Von</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <input type="text" class="form-control" id="inputRenameOldPath" placeholder="z.B. kapitel/kapitel1.tex">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputRenameNewPath" class="col-sm-2 control-label">Nach</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <input type="text" class="form-control" id="inputRenameNewPath" placeholder="z.B. kapitel/kapitel2.tex">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Umbenennen</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script type="text/javascript" src="js/api_url.js"></script>
         <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
         <script type="text/javascript" src="js/jquery.cookie.js"></script>
@@ -304,6 +367,7 @@
         <script type="text/javascript" src="js/editor.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
         <script type="text/javascript" src="js/projects.js"></script>
+        <script type="text/javascript" src="js/compile.js"></script>
         <script type="text/javascript" src="js/modalcontrol.js"></script>
     </body>
 </html>
