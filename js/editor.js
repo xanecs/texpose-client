@@ -126,11 +126,12 @@ $(document).ready(function () {
     
     $('#btnUploadFile').click(function () {
         initiateUploadNewFile(function (result, file) {
+            console.log(file);
             $('#alertUpload').fadeIn();
             $.ajax({
                 url: API_URL + '/file/new',
                 type: 'post',
-                contentType: 'application/octet-stream',
+                contentType: false,
                 data: file,
                 headers: {
                     'Token': $.cookie('sessID'),
