@@ -357,6 +357,43 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="modalEditProject" role="dialog" aria-labelledby="modalEditProjectLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                        <h4 class="modal-title" id="modalEditProjectLabel">Projekteinstellungen</h4>
+                    </div>
+                    <div class="modal-body" id="modalEditProjectBody">
+                        <form class="form-horizontal" role="form" id="formEditProject">
+                            <div class="form-group">
+                                <label for="inputEditPrjTitle" class="col-sm-2 control-label">Titel</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <input type="text" class="form-control" id="inputEditPrjTitle" placeholder="Titel">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEditPrjDesc" class="col-sm-2 control-label">Info</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <textarea class="form-control" id="inputEditPrjDesc" placeholder="Beschreibung"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputEditPrjMainfile" class="col-sm-2 control-label">Start</label>
+                                <div class="col-sm-10 containerLeft">
+                                    <input type="text" class="form-control" id="inputEditPrjMainfile" placeholder="Startdatei">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Speichern</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <script type="text/javascript" src="js/api_url.js"></script>
         <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
         <script type="text/javascript" src="js/jquery.cookie.js"></script>

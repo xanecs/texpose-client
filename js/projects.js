@@ -65,8 +65,13 @@ $(document).ready(function () {
     
     $('#btnProjects').click(refreshProjects);
     
-    $('btnProjectSettings').click(function () {
-        
+    $('#btnProjectSettings').click(function () {
+        initiateEditProject(function (data) {
+            $.post(API_URL + '/project/edit', data, function(result) {
+                $('#modalEditProject').modal('hide');
+                refreshProjects();
+            });
+        });
     });
     
     $('#listProjects').on('click', '.project-item', function () {

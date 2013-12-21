@@ -4,6 +4,7 @@ var uploadHandler;
 var newFileHandler;
 var uploadFileHandler;
 var renameFileHandler;
+var editProjectHandler;
 
 var initiateUpload = function (callback) {
     "use strict";
@@ -28,6 +29,17 @@ var initiateRenameFile = function (data, callback) {
     renameFileHandler = callback;
     $('#inputRenameOldPath').val(data);
     $('#modalRenameFile').modal('show');
+};
+
+var initiateEditProject = function(callback) {
+    "use strict";
+    if(project) {
+        editProjectHandler = callback;
+        $('#inputEditPrjTitle').val(project.name);
+        $('#inputEditPrjDesc').val(project.description);
+        $('#inputEditPrjMainfile').val(project.mainfile);
+        $('#modalEditProject').modal('show');
+    }
 };
 
 var resize = function () {
@@ -110,6 +122,38 @@ $(document).ready(function () {
             }
             
             renameFileHandler(data);
+        }
+    });
+    
+    $('#formEditProject').submit(function (event) {
+        event.preventDefault();
+        if (editProjectHandler) {
+            $('.alert-reg').remove();
+            var data = {
+                name: $('#inputEditPrjTitle').val(),
+                description: $('#inputEditPrjDesc').val(),
+                mainfile: $('#inputEditPrjMainfile').val(),
+                token: $.cookie('sessID'),
+                project: project._id
+            };
+            
+            var doReturn = 0;
+            
+            if (!data.name) {
+                $('#inputEditPrjTitle').after(messages.empty);
+                doReturn++;
+            }
+            
+            if (!data.mainfile) {
+               $('#inputEditPrjMainfile').after(messages.empty);
+                doReturn++;
+            }
+            
+            if(doReturn > 0) {
+                return;
+            }
+            
+            editProjectHandler(data);
         }
     });
 });
