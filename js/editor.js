@@ -2,9 +2,13 @@
 
 
 var path;
-var editor = ace.edit("editor");
-editor.setTheme("ace/theme/monokai");
-editor.getSession().setMode("ace/mode/tex");
+var editor = CodeMirror(document.getElementById('editor'), {
+    mode: 'stex',
+    theme: 'lesser-dark',
+    lineNumbers: true, 
+    autoCloseBrackets: true,
+    lineWrapping: true
+});
 
 var saveDocument = function (callback) {
     if (path && $('#image-viewer').hasClass('hidden')) {

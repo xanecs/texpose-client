@@ -46,6 +46,7 @@ var resize = function () {
     "use strict";
     $('#content').height($(window).height() - 102);
     $('#tabPdf').height($(window).height() - 102 - 42);
+    editor.refresh();
 };
 
 $(document).ready(function () {

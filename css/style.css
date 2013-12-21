@@ -79,3 +79,7 @@ iframe {
     overflow-y: scroll;
         
 }
+
+.CodeMirror {
+    height: 100%;
+}

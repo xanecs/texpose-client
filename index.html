@@ -3,6 +3,9 @@
     <head>
         <title>TeXpose</title>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+        
+        <link rel="stylesheet" type="text/css" href="codemirror/lib/codemirror.css">
+        <link rel="stylesheet" type="text/css" href="codemirror/theme/lesser-dark.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta charset="utf-8">
     </head>
@@ -55,7 +58,7 @@
                     <div class="fullwidth-container" id="contentContainer">
                         <div class="row">
                             <div class="col-sm-6" id="editorContainer">
-                                <div id="editor" class="hidden"></div>
+                                <div id="editor" class=""></div>
                                 <div id="image-viewer" class="hidden">
                                     <div>
                                         <img src="" id="image-viewer-image">
@@ -401,7 +404,8 @@
         <script type="text/javascript" src="js/bootstrap.min.js"></script>
         <script type="text/javascript" src="js/jquery.jstree.js"></script>
         <script type="text/javascript" src="js/jquery.base64.js"></script>
-        <script src="js/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+        <script type="text/javascript" src="codemirror/lib/codemirror.js"></script>
+        <script type="text/javascript" src="codemirror/mode/stex/stex.js"></script>
         <script type="text/javascript" src="js/editor.js"></script>
         <script type="text/javascript" src="js/login.js"></script>
         <script type="text/javascript" src="js/projects.js"></script>
