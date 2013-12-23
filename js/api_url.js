@@ -1,1 +1,1 @@
-var API_URL = "http://direct.leonadi.de:3000";
+var API_URL = "http://localhost:5353";

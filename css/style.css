@@ -35,6 +35,7 @@ li.jstree-leaf > a .jstree-icon {
 
 #image-viewer-image {
     max-height: 400px;
+    max-width: 100%;
 }
 
 .controls {

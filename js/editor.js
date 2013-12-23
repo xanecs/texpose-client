@@ -2,16 +2,21 @@
 
 
 var path;
-var editor = CodeMirror(document.getElementById('editor'), {
-    mode: 'stex',
-    theme: 'lesser-dark',
-    lineNumbers: true, 
-    autoCloseBrackets: true,
-    lineWrapping: true
-});
+var changed = false;
+
+var markChanged = function(value) {
+    changed = value;
+    if(value) {
+        $('#btnSave').removeClass('btn-primary');
+        $('#btnSave').addClass('btn-warning');
+    } else {
+        $('#btnSave').removeClass('btn-warning');
+        $('#btnSave').addClass('btn-primary');
+    }
+};
 
 var saveDocument = function (callback) {
-    if (path && $('#image-viewer').hasClass('hidden')) {
+    if (path && $('#image-viewer').hasClass('hidden') && changed) {
         $('#alertSaving').fadeIn();
         $.ajax({
             url: API_URL + '/file/new',
@@ -25,8 +30,9 @@ var saveDocument = function (callback) {
             },
             crossDomain: true,
             success: function (data) {
+                markChanged(false);              
                 if(typeof callback === 'function') {
-                    callback()
+                    callback(true)
                 }
                 $('#btnSave').removeClass('btn-primary');
                 $('#btnSave').addClass('btn-success');
@@ -37,8 +43,27 @@ var saveDocument = function (callback) {
                 $('#alertSaving').fadeOut();
             }
         });
+    } else {
+        if(typeof callback === 'function') {
+            callback(false);
+        }
     }
 };
+
+var editor = CodeMirror(document.getElementById('editor'), {
+    mode: 'stex',
+    theme: 'solarized',
+    lineNumbers: true, 
+    autoCloseBrackets: true,
+    lineWrapping: true,
+    extraKeys: {
+        "Ctrl-S": saveDocument   
+    }
+});
+
+editor.doc.on('change', function () {
+    markChanged(true);
+});
 
 $(document).ready(function () {
     "use strict";

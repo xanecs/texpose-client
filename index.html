@@ -5,7 +5,7 @@
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
         
         <link rel="stylesheet" type="text/css" href="codemirror/lib/codemirror.css">
-        <link rel="stylesheet" type="text/css" href="codemirror/theme/lesser-dark.css">
+        <link rel="stylesheet" type="text/css" href="codemirror/theme/solarized.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <meta charset="utf-8">
     </head>
@@ -16,7 +16,7 @@
             </div>
             <ul class="navbar-left nav navbar-nav hidden" id="mainMenu">
                 <li><a href="#" id="btnProjects">Projekte</a></li>
-                <li><a href="#" id="btnProjectSettings">Projekteinstellungen</a></li>
+                <li><a href="#" id="btnProjectSettings" class="hidden">Projekteinstellungen</a></li>
                 <li><a href="#" id="btnCompile">Kompilieren</a></li>
                 <li><a href="/help.html" target="_blank">Hilfe</a></li>
             </ul>
@@ -211,6 +211,7 @@
                         <h4 class="modal-title" id="modalDoneLabel">Fertig</h4>
                     </div>
                     <div class="modal-body" id="modalDoneBody">
+                        Eine E-Mail mit einem Bestätigungslink wurde an die angegebene Adresse geschickt.
                     </div>
                 </div>
             </div>
@@ -391,6 +392,7 @@
                             <div class="form-group">
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-primary">Speichern</button>
+                                    <a id="btnDeleteProject" class="btn btn-danger">Löschen</a>
                                 </div>
                             </div>
                         </form>

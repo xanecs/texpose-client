@@ -29,6 +29,7 @@ var populateTree = function () {
         $('#filesTree').jstree({json_data: result, plugins: ["json_data", "themes", "ui"]});
         $('#filesTree').bind("select_node.jstree", function (evt, data) {
             if (data.rslt.obj.attr("leaf")) {
+                saveDocument();
                 path = data.rslt.obj.attr("path");
                 $.get(API_URL + '/file/get/' + project._id + '/' + $.cookie("sessID") + '/' +  encodeURIComponent(path), function (result) {
                     var extension = path.substr(path.lastIndexOf('.') + 1);
@@ -39,6 +40,7 @@ var populateTree = function () {
                         $('#btnSave').addClass('disabled');
                     } else {
                         editor.setValue(result);
+                        markChanged(false);
                         $('#image-viewer').addClass('hidden');
                         $('#editor').removeClass('hidden');
                         $('#btnSave').removeClass('disabled');
@@ -86,6 +88,7 @@ $(document).ready(function () {
         $('#btnDelete').removeClass('disabled');
         $('#btnNew').removeClass('disabled');
         $('#btnRename').removeClass('disabled');
+        $('#btnProjectSettings').removeClass('hidden');
         populateTree();
     });
     
@@ -108,6 +111,12 @@ $(document).ready(function () {
         $.post(API_URL + '/project/new', data, function(result) {
             $('#modalProjects').modal('hide');
             refreshProjects();
+        });
+    });
+    
+    $('#btnDeleteProject').click(function () {
+        $.post(API_URL + '/project/delete', {token: $.cookie('sessID'), project: project._id }, function () {
+            location.reload();
         });
     });
 });
