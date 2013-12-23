@@ -52,7 +52,7 @@ var saveDocument = function (callback) {
 
 var editor = CodeMirror(document.getElementById('editor'), {
     mode: 'stex',
-    theme: 'solarized',
+    theme: 'lesser-dark',
     lineNumbers: true, 
     autoCloseBrackets: true,
     lineWrapping: true,
