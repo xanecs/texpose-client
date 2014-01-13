@@ -109,6 +109,7 @@ $(document).ready(function () {
         }
         
         $.post(API_URL + '/project/new', data, function(result) {
+            alert("WTF");
             $('#modalProjects').modal('hide');
             refreshProjects();
         });

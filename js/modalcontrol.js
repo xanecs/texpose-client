@@ -5,6 +5,7 @@ var newFileHandler;
 var uploadFileHandler;
 var renameFileHandler;
 var editProjectHandler;
+var editUserHandler;
 
 var initiateUpload = function (callback) {
     "use strict";
@@ -39,6 +40,17 @@ var initiateEditProject = function(callback) {
         $('#inputEditPrjDesc').val(project.description);
         $('#inputEditPrjMainfile').val(project.mainfile);
         $('#modalEditProject').modal('show');
+    }
+};
+
+var initiateEditUser = function(callback) {
+    "use strcit";
+    if(user) {
+        editUserHandler = callback;
+        $('#inputEditUserFirstname').val(user.firstname);
+        $('#inputEditUserLastname').val(user.lastname);
+        $('#inputEditUserEmail').val(user.email);
+        $('#modalEditUser').modal('show');
     }
 };
 
@@ -155,6 +167,33 @@ $(document).ready(function () {
             }
             
             editProjectHandler(data);
+        }
+    });
+    
+    $('#formEditUser').submit(function (event) {
+        event.preventDefault();
+        if (editUserHandler) {
+            $('.alert-reg').remove();
+            var data = {
+                firstname: $('#inputEditUserFirstname').val(),
+                lastname: $('#inputEditUserLastname').val(),
+                email: $('#inputEditUserEmail').val(),
+                password: $('#inputEditUserPassword').val(),
+                token: $.cookie('sessID'),
+                project: project._id
+            };
+            
+            var doReturn = 0;
+            
+            if(data.password != $('#inputEditUserPasswordRepeat').val()) {
+                $('#containerEditUserPassword').after(messages.nomatch);
+            }
+            
+            if(doReturn > 0) {
+                return;
+            }
+            
+            editUserHandler(data);
         }
     });
 });

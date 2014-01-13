@@ -1,7 +1,7 @@
 /*global $, jQuery, console, API_URL, document, alert, location */
 
 
-
+var user;
 var messages = {
     'empty' : '<div class="alert alert-danger alert-small alert-reg">Dieses Feld darf nicht leer sein!</div>',
     'nomatch' : '<div class="alert alert-danger alert-small alert-reg">Die Passwörter stimmen nicht überein!</div>',
@@ -27,6 +27,7 @@ var checkUsername = function () {
 
 var setUpWorkspace = function (options) {
     "use strict";
+    user = options;
     $('#labelName').html($('#labelName').html().replace('Vorname', options.firstname).replace('Nachname', options.lastname));
     $('#dropdownName').removeClass('hidden');
     $('#mainMenu').removeClass('hidden');
@@ -71,6 +72,17 @@ $(document).ready(function () {
         } else {
             $('#inputRegUsername').after(messages.nottaken);
         }
+    });
+    
+    $('#btnEditUser').click(function () {
+        initiateEditUser(function (data) {
+            $.post(API_URL + '/user/edit', data, function (result) {
+                if (result.status == 'SUCCESS') {
+                    $.cookie("sessID", null);
+                    location.reload();
+                }
+            });
+        });
     });
     
     $('#formLogin').submit(function (event) {

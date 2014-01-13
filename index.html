@@ -33,6 +33,7 @@
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="labelName"><span class="glyphicon glyphicon-user"></span> Vorname Nachname <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a href="#" id="logout">Abmelden</a></li>
+                        <li><a href="#" id="btnEditUser">Bearbeiten</a></li>
                     </ul>
                 </li>
             </ul>
@@ -393,6 +394,57 @@
                                 <div class="col-sm-offset-2 col-sm-10">
                                     <button type="submit" class="btn btn-primary">Speichern</button>
                                     <a id="btnDeleteProject" class="btn btn-danger">Löschen</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="modalEditUser" role="dialog" aria-labelledby="modalEditUserLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><span class="glyphicon glyphicon-remove"></span></button>
+                        <h4 class="modal-title" id="modalEditUserLabel">Projekteinstellungen</h4>
+                    </div>
+                    <div class="modal-body" id="modalEditUserBody">
+                        <form class="form-horizontal" role="form" id="formEditUser">
+                            <div class="form-group" id="groupEditUserName">
+                                <label for="inputEditUserFirstname" class="col-sm-2 control-label">Name</label>
+                                <div class="col-sm-10">
+                                    <div class="row">
+                                        <div class="col-sm-6 containerLeft" id="containerEditUserFirstname">
+                                            <input type="text" class="form-control" id="inputEditUserFirstname" placeholder="Vorname">
+                                        </div>
+                                        <div class="col-sm-6 containerRight" id="containerEditUserLastname">
+                                            <input type="text" class="form-control" id="inputEditUserLastname" placeholder="Nachname">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group" id="groupEditUserEmail">
+                                <label for="inputRegEmail" class="col-sm-2 control-label">E-Mail</label>
+                                <div class="col-sm-10">
+                                    <input type="email" class="form-control" id="inputEditUserEmail" placeholder="E-Mail">
+                                </div>
+                            </div>
+                            <div class="form-group" id="groupEditUserPassword">
+                                <label for="inputEditUserPassword" class="col-sm-2 control-label">Passwort</label>
+                                <div class="col-sm-10">
+                                    <div class="row" id="containerEditUserPassword">
+                                        <div class="col-sm-6 containerLeft">
+                                            <input type="password" class="form-control" id="inputEditUserPassword" placeholder="Passwort">
+                                        </div>
+                                        <div class="col-sm-6 containerRight">
+                                            <input type="password" class="form-control" id="inputEditUserPasswordRepeat" placeholder="Wiederholung">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-primary">Ändern</button>
                                 </div>
                             </div>
                         </form>
