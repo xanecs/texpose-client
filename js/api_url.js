@@ -1,1 +1,1 @@
-var API_URL = "http://localhost:3000";
+var API_URL = "http://texpose-api.leonadi.de";
